@@ -1,0 +1,14 @@
+C:\Users\Admin\Codes\CS\Projects\GradingSystem\bin\Debug\net9.0\GradingSystem.exe
+C:\Users\Admin\Codes\CS\Projects\GradingSystem\bin\Debug\net9.0\GradingSystem.deps.json
+C:\Users\Admin\Codes\CS\Projects\GradingSystem\bin\Debug\net9.0\GradingSystem.runtimeconfig.json
+C:\Users\Admin\Codes\CS\Projects\GradingSystem\bin\Debug\net9.0\GradingSystem.dll
+C:\Users\Admin\Codes\CS\Projects\GradingSystem\bin\Debug\net9.0\GradingSystem.pdb
+C:\Users\Admin\Codes\CS\Projects\GradingSystem\obj\Debug\net9.0\GradingSystem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\Codes\CS\Projects\GradingSystem\obj\Debug\net9.0\GradingSystem.AssemblyInfoInputs.cache
+C:\Users\Admin\Codes\CS\Projects\GradingSystem\obj\Debug\net9.0\GradingSystem.AssemblyInfo.cs
+C:\Users\Admin\Codes\CS\Projects\GradingSystem\obj\Debug\net9.0\GradingSystem.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Codes\CS\Projects\GradingSystem\obj\Debug\net9.0\GradingSystem.dll
+C:\Users\Admin\Codes\CS\Projects\GradingSystem\obj\Debug\net9.0\refint\GradingSystem.dll
+C:\Users\Admin\Codes\CS\Projects\GradingSystem\obj\Debug\net9.0\GradingSystem.pdb
+C:\Users\Admin\Codes\CS\Projects\GradingSystem\obj\Debug\net9.0\GradingSystem.genruntimeconfig.cache
+C:\Users\Admin\Codes\CS\Projects\GradingSystem\obj\Debug\net9.0\ref\GradingSystem.dll
