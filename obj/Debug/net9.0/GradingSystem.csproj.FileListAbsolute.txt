@@ -12,3 +12,4 @@ C:\Users\Admin\Codes\CS\Projects\GradingSystem\obj\Debug\net9.0\refint\GradingSy
 C:\Users\Admin\Codes\CS\Projects\GradingSystem\obj\Debug\net9.0\GradingSystem.pdb
 C:\Users\Admin\Codes\CS\Projects\GradingSystem\obj\Debug\net9.0\GradingSystem.genruntimeconfig.cache
 C:\Users\Admin\Codes\CS\Projects\GradingSystem\obj\Debug\net9.0\ref\GradingSystem.dll
+C:\Users\Admin\Codes\CS\Projects\GradingSystem\obj\Debug\net9.0\GradingSystem.sourcelink.json

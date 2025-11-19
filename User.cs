@@ -30,7 +30,7 @@ public abstract class User
         }
     }
 
-    public int UserName { get; set; }
+    public string? UserName { get; set; }
     public string? Name { get; set; }
     public string? LastName { get; set; }
 }

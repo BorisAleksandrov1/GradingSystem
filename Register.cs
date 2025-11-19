@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public enum UserRole
 {
@@ -7,69 +8,73 @@ public enum UserRole
     Teacher
 }
 
-public static class RegisterService
+public static class AccountService
 {
-    // Example in-memory store
-    private static readonly List<User> _users = new List<User>();
+    // ⛔ REMOVE this:
+    // private static readonly List<User> _users = new List<User>();
 
-    public static User Register()
+    public static User Register(List<User> users)
     {
-        Console.WriteLine("=== Registration ===");
+        Console.WriteLine("=== SIGN UP ===");
 
-        // 1. Choose role
         UserRole role = AskForRole();
-
-        // 2. Common user data
-        int userName = AskForInt("Enter numeric username: ");
+        string userName = AskForString("Enter username: ");
         string name = AskForString("Enter first name: ");
         string lastName = AskForString("Enter last name: ");
         string password = AskForPassword();
 
-        // 3. Create specific user type
-        User newUser;
-        if (role == UserRole.Student)
-        {
-            newUser = CreateStudent(userName, name, lastName, password);
-        }
-        else
-        {
-            newUser = CreateTeacher(userName, name, lastName, password);
-        }
+        User newUser = (role == UserRole.Student)
+            ? CreateStudent(userName, name, lastName, password)
+            : CreateTeacher(userName, name, lastName, password);
 
-        // 4. Store user (optional)
-        _users.Add(newUser);
+        // ✅ Add to the list that came from Program.cs
+        users.Add(newUser);
 
-        Console.WriteLine("User registered successfully!\n");
+        Console.WriteLine("Registration successful!\n");
         return newUser;
     }
+
+    public static User? Login(List<User> users)
+    {
+        Console.WriteLine("=== LOG IN ===");
+
+        while (true)
+        {
+            string userName = AskForString("Username: ");
+            Console.Write("Password: ");
+            string password = Console.ReadLine() ?? "";
+
+            // ✅ Search in the list that came from Program.cs
+            User? found = users.FirstOrDefault(u =>
+                u.UserName == userName &&
+                u.Password == password
+            );
+
+            if (found != null)
+            {
+                Console.WriteLine($"Welcome back, {found.Name} {found.LastName} ({found.GetType().Name})!\n");
+                return found;
+            }
+
+            Console.WriteLine("Invalid username or password.");
+            if (!AskForYesNo("Try again? (y/n): "))
+                return null;
+        }
+    }
+
+    // ------------------- Helpers -------------------
 
     private static UserRole AskForRole()
     {
         while (true)
         {
-            Console.Write("Are you registering as a Student or Teacher? (s/t): ");
+            Console.Write("Are you registering as Student or Teacher? (s/t): ");
             string? input = Console.ReadLine()?.Trim().ToLower();
 
-            if (input == "s" || input == "student")
-                return UserRole.Student;
-            if (input == "t" || input == "teacher")
-                return UserRole.Teacher;
+            if (input == "s" || input == "student") return UserRole.Student;
+            if (input == "t" || input == "teacher") return UserRole.Teacher;
 
-            Console.WriteLine("Invalid input. Please type 's' for Student or 't' for Teacher.");
-        }
-    }
-
-    private static int AskForInt(string message)
-    {
-        while (true)
-        {
-            Console.Write(message);
-            string? input = Console.ReadLine();
-
-            if (int.TryParse(input, out int result))
-                return result;
-
-            Console.WriteLine("Please enter a valid integer.");
+            Console.WriteLine("Please type 's' or 't'.");
         }
     }
 
@@ -92,14 +97,13 @@ public static class RegisterService
         while (true)
         {
             Console.Write("Enter password: ");
-            string? pwd = Console.ReadLine() ?? string.Empty;
+            string pwd = Console.ReadLine() ?? "";
 
             try
             {
-                // Use a temp user to validate logic (or validate later when setting on real user)
-                var temp = new DummyUser();
-                temp.Password = pwd;
-                return pwd; // if no exception, password is valid
+                var dummy = new DummyUser();
+                dummy.Password = pwd;
+                return pwd;
             }
             catch (ArgumentException ex)
             {
@@ -108,15 +112,15 @@ public static class RegisterService
         }
     }
 
-    // Simple dummy just for password validation
     private class DummyUser : User { }
 
-    private static Student CreateStudent(int userName, string name, string lastName, string password)
+    private static Student CreateStudent(string userName, string name, string lastName, string password)
     {
         Console.WriteLine("--- Student details ---");
-        int grade = AskForInt("Enter grade (e.g., 1–12): ");
-        string major = AskForString("Enter major (or field of study): ");
-        double gpa = AskForDouble("Enter GPA (e.g., 3.5): ");
+
+        int grade = AskForInt("Enter grade (1-12): ");
+        string major = AskForString("Enter major: ");
+        double gpa = AskForDouble("Enter GPA: ");
 
         var student = new Student
         {
@@ -132,12 +136,13 @@ public static class RegisterService
         return student;
     }
 
-    private static Teacher CreateTeacher(int userName, string name, string lastName, string password)
+    private static Teacher CreateTeacher(string userName, string name, string lastName, string password)
     {
         Console.WriteLine("--- Teacher details ---");
-        string subject = AskForString("Enter subject taught: ");
+
+        string subject = AskForString("Enter subject: ");
         int years = AskForInt("Enter years of experience: ");
-        bool isFullTime = AskForYesNo("Is full-time? (y/n): ");
+        bool fullTime = AskForYesNo("Full-time? (y/n): ");
 
         var teacher = new Teacher
         {
@@ -146,40 +151,48 @@ public static class RegisterService
             LastName = lastName,
             Subject = subject,
             YearsOfExperience = years,
-            IsFullTime = isFullTime
+            IsFullTime = fullTime
         };
 
         teacher.Password = password;
         return teacher;
     }
 
-    private static double AskForDouble(string message)
+    private static int AskForInt(string msg)
     {
         while (true)
         {
-            Console.Write(message);
-            string? input = Console.ReadLine();
-
-            if (double.TryParse(input, out double result))
-                return result;
+            Console.Write(msg);
+            if (int.TryParse(Console.ReadLine(), out int value))
+                return value;
 
             Console.WriteLine("Please enter a valid number.");
         }
     }
 
-    private static bool AskForYesNo(string message)
+    private static double AskForDouble(string msg)
     {
         while (true)
         {
-            Console.Write(message);
-            string? input = Console.ReadLine()?.Trim().ToLower();
+            Console.Write(msg);
+            if (double.TryParse(Console.ReadLine(), out double value))
+                return value;
 
-            if (input == "y" || input == "yes")
-                return true;
-            if (input == "n" || input == "no")
-                return false;
+            Console.WriteLine("Please enter a valid number.");
+        }
+    }
 
-            Console.WriteLine("Please answer 'y' or 'n'.");
+    private static bool AskForYesNo(string msg)
+    {
+        while (true)
+        {
+            Console.Write(msg);
+            string? response = Console.ReadLine()?.Trim().ToLower();
+
+            if (response == "y" || response == "yes") return true;
+            if (response == "n" || response == "no") return false;
+
+            Console.WriteLine("Please answer y/n.");
         }
     }
 }
