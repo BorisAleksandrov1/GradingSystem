@@ -1,0 +1,15 @@
+[
+  {
+    "Role": "Student",
+    "UserName": "boriskataMBT",
+    "Name": "Boris",
+    "LastName": "Aleksandrov",
+    "Password": "Parola123",
+    "Grade": 7,
+    "Major": "Busines",
+    "GPA": 3.6,
+    "Subject": null,
+    "YearsOfExperience": null,
+    "IsFullTime": null
+  }
+]

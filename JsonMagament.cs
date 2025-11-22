@@ -6,7 +6,7 @@ using System.Text.Json;
 
 public static class UserRepository
 {
-    private const string FilePath = @"C:\Users\Admin\Codes\Projects\CS\GradingSystem\Users.json";
+    private const string FilePath = @"C:\Users\Admin\Codes\CS\Projects\GradingSystem\Users.json";
 
     public static List<User> LoadUsers()
     {

@@ -9,7 +9,6 @@ class Program
 
         AccountManagement(users);
 
-        // 2. Save to JSON before exit
         UserRepository.SaveUsers(users);
     }
 
